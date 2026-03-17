@@ -338,8 +338,8 @@ function submitSetup() {
     err.textContent = "Please enter both API keys to continue.";
     err.style.display = "block"; return;
   }
-  if (!ag.startsWith("AAPK") && ag.length < 20) {
-    err.textContent = "That doesn't look like a valid ArcGIS key. Check and try again.";
+  if (ag.length < 20) {
+    err.textContent = "That ArcGIS key looks too short. Please check and paste it again.";
     err.style.display = "block"; return;
   }
   if (!ant.startsWith("sk-ant")) {
@@ -384,12 +384,23 @@ function initMap() {
     "esri/Graphic", "esri/layers/GraphicsLayer"
   ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer) {
 
+    // Set API key FIRST before anything else loads
     esriConfig.apiKey = ARCGIS_API_KEY;
 
-    const map  = new Map({ basemap: "streets-navigation-vector" });
+    // Use "osm/standard" — works with ArcGIS Location Platform keys
+    // If you have an ArcGIS Online org key, change to "streets-navigation-vector"
+    const map  = new Map({ basemap: "osm/standard" });
     const view = new MapView({
       container: "arcgis-map", map: map,
       center: [78.9629, 22.5937], zoom: 5
+    });
+
+    view.when(() => {
+      console.log("Map loaded successfully");
+    }).catch(err => {
+      console.error("Map load error:", err);
+      // Fallback to fully open basemap that needs no key at all
+      map.basemap = "osm";
     });
 
     const pinsLayer = new GraphicsLayer();
