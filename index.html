@@ -384,11 +384,9 @@ function initMap() {
     "esri/Graphic", "esri/layers/GraphicsLayer"
   ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer) {
 
-    // API key kept for geocoding
     esriConfig.apiKey = ARCGIS_API_KEY;
 
-    // OpenStreetMap basemap - free, no token required
-    const map  = new Map({ basemap: "osm" });
+    const map  = new Map({ basemap: "arcgis/navigation" });
     const view = new MapView({
       container: "arcgis-map", map: map,
       center: [78.9629, 22.5937], zoom: 5
