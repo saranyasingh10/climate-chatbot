@@ -146,35 +146,9 @@
     </div>
 
     <div class="setup-field">
-      <label>AI Provider</label>
-      <div style="display:flex;gap:8px;margin-bottom:8px">
-        <label style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:400;cursor:pointer;padding:7px 12px;border:1px solid #ddd;border-radius:8px;flex:1;transition:all .15s" id="lbl-anthropic">
-          <input type="radio" name="provider" value="anthropic" id="radio-anthropic" checked onchange="switchProvider(this.value)" style="accent-color:#1a1a2e"/>
-          <span>🤖 Anthropic</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:400;cursor:pointer;padding:7px 12px;border:1px solid #ddd;border-radius:8px;flex:1;transition:all .15s" id="lbl-github">
-          <input type="radio" name="provider" value="github" id="radio-github" onchange="switchProvider(this.value)" style="accent-color:#1a1a2e"/>
-          <span>🐙 GitHub Models <span style="font-size:10px;background:#d4edda;color:#155724;padding:1px 6px;border-radius:10px;font-weight:600">GPT-4o FREE</span></span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Anthropic key field -->
-    <div class="setup-field" id="field-anthropic">
       <label>Anthropic (Claude) API Key</label>
       <input type="password" id="input-anthropic" placeholder="Paste your Anthropic key (sk-ant-...)" autocomplete="off"/>
-      <div class="setup-hint">From <strong>console.anthropic.com</strong> → API Keys</div>
-    </div>
-
-    <!-- GitHub PAT field -->
-    <div class="setup-field" id="field-github" style="display:none">
-      <label>GitHub Personal Access Token</label>
-      <input type="password" id="input-github" placeholder="Paste your GitHub token (ghp_... or github_pat_...)" autocomplete="off"/>
-      <div class="setup-hint">
-        From <strong>github.com → Settings → Developer settings → Personal access tokens</strong>
-        (Fine-grained or Classic with <em>no special scopes</em> needed for GitHub Models).
-        Uses Claude Sonnet via GitHub Models — <strong>free within limits</strong>.
-      </div>
+      <div class="setup-hint">From console.anthropic.com → API Keys</div>
     </div>
 
     <hr class="setup-divider"/>
@@ -223,37 +197,20 @@
 
     <!-- BASEMAP SWITCHER -->
     <div id="basemap-switcher">
-      <div class="bm-btn active" id="bm-navigation" onclick="switchBasemap('arcgis/navigation','bm-navigation')" title="Streets">
-        <div style="width:100%;height:100%;background:#c8dff5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
-          <div style="width:30px;height:3px;background:#7fb3d8;border-radius:2px"></div>
-          <div style="width:22px;height:3px;background:#a0c8e8;border-radius:2px"></div>
-          <div style="width:28px;height:3px;background:#7fb3d8;border-radius:2px"></div>
-        </div>
+      <div class="bm-btn active" id="bm-navigation" onclick="switchBasemap('arcgis/navigation','bm-navigation')" title="Streets Navigation">
+        <img src="https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/thumbnails/arcgis/navigation?token=" onerror="this.style.background='#e8f0fe';this.style.display='block'" style="background:#cde"/>
         <div class="bm-label">Streets</div>
       </div>
-      <div class="bm-btn" id="bm-imagery" onclick="switchBasemap('arcgis/imagery','bm-imagery')" title="Satellite">
-        <div style="width:100%;height:100%;background:#2d4a2d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
-          <div style="width:32px;height:8px;background:#3a6a3a;border-radius:2px"></div>
-          <div style="width:20px;height:6px;background:#1a3a1a;border-radius:2px;margin-left:6px"></div>
-          <div style="width:28px;height:5px;background:#4a7a4a;border-radius:2px"></div>
-        </div>
+      <div class="bm-btn" id="bm-imagery" onclick="switchBasemap('arcgis/imagery','bm-imagery')" title="Satellite Imagery">
+        <img src="https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/thumbnails/arcgis/imagery?token=" onerror="this.style.background='#2d4a2d';this.style.display='block'" style="background:#4a6741"/>
         <div class="bm-label">Satellite</div>
       </div>
       <div class="bm-btn" id="bm-terrain" onclick="switchBasemap('arcgis/terrain','bm-terrain')" title="Terrain">
-        <div style="width:100%;height:100%;background:#d8c8a8;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px">
-          <div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:18px solid #a08060;margin-right:-4px"></div>
-          <div style="width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:24px solid #b89070"></div>
-        </div>
+        <img src="https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/thumbnails/arcgis/terrain?token=" onerror="this.style.background='#c8b89a';this.style.display='block'" style="background:#c8b89a"/>
         <div class="bm-label">Terrain</div>
       </div>
-      <div class="bm-btn" id="bm-darkgray" onclick="switchBasemap('arcgis/dark-gray','bm-darkgray')" title="Dark">
-        <div style="width:100%;height:100%;background:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
-          <div style="width:30px;height:3px;background:#555;border-radius:2px"></div>
-          <div style="width:22px;height:3px;background:#444;border-radius:2px"></div>
-          <div style="width:28px;height:3px;background:#555;border-radius:2px"></div>
-        </div>
-        <div class="bm-label" style="color:#ddd">Dark</div>
-      </div>
+      <div class="bm-btn" id="bm-darkgray" onclick="switchBasemap('arcgis/dark-gray','bm-darkgray')" title="Dark Gray">
+        <img src="https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/thumbnails/arcgis/dark-gray?token=" onerror="this.style.background='#3a3a3a';this.style.display='block'" style="background:#3a3a3a"/>
         <div class="bm-label">Dark</div>
       </div>
     </div>
@@ -311,12 +268,10 @@
 // ═══════════════════════════════════════════════
 // STATE — keys always from sessionStorage, never hardcoded
 // ═══════════════════════════════════════════════
-let ARCGIS_KEY    = "";
+let ARCGIS_KEY   = "";
 let ANTHROPIC_KEY = "";
-let GITHUB_TOKEN  = "";
-let AI_PROVIDER   = "anthropic"; // "anthropic" | "github"
-let WEATHER_KEY   = "";
-let WEBMAP_ID     = "";
+let WEATHER_KEY  = "";
+let WEBMAP_ID    = "";
 
 const COLORS = {
   heat:    {pin:"#E24B4A",light:"#FCEBEB",dark:"#791F1F"},
@@ -331,55 +286,33 @@ const PHASE_COLORS = {
 };
 
 // ── Setup ─────────────────────────────────────
-function switchProvider(val) {
-  document.getElementById("field-anthropic").style.display = val === "anthropic" ? "block" : "none";
-  document.getElementById("field-github").style.display    = val === "github"    ? "block" : "none";
-  document.getElementById("lbl-anthropic").style.background = val === "anthropic" ? "#f0f2f5" : "white";
-  document.getElementById("lbl-github").style.background    = val === "github"    ? "#f0f2f5" : "white";
-}
-
 function submitSetup() {
-  const ag       = document.getElementById("input-arcgis").value.trim();
-  const ant      = document.getElementById("input-anthropic").value.trim();
-  const gh       = document.getElementById("input-github").value.trim();
-  const wx       = document.getElementById("input-weather").value.trim();
-  const wm       = document.getElementById("input-webmap").value.trim();
-  const provider = document.querySelector('input[name="provider"]:checked').value;
-  const err      = document.getElementById("setup-error");
+  const ag  = document.getElementById("input-arcgis").value.trim();
+  const ant = document.getElementById("input-anthropic").value.trim();
+  const wx  = document.getElementById("input-weather").value.trim();
+  const wm  = document.getElementById("input-webmap").value.trim();
+  const err = document.getElementById("setup-error");
 
-  err.style.display = "none";
-
-  if (!ag) {
-    err.textContent = "ArcGIS key is required.";
+  if (!ag || !ant) {
+    err.textContent = "ArcGIS and Anthropic keys are required.";
     err.style.display = "block"; return;
   }
   if (ag.length < 20) {
     err.textContent = "ArcGIS key looks too short — please check it.";
     err.style.display = "block"; return;
   }
-
-  if (provider === "anthropic") {
-    if (!ant) { err.textContent = "Anthropic API key is required."; err.style.display="block"; return; }
-    if (!ant.startsWith("sk-ant")) { err.textContent = "Anthropic key should start with sk-ant-..."; err.style.display="block"; return; }
-  } else {
-    if (!gh) { err.textContent = "GitHub Personal Access Token is required."; err.style.display="block"; return; }
-    if (!gh.startsWith("ghp_") && !gh.startsWith("github_pat_")) {
-      err.textContent = "GitHub token should start with ghp_ or github_pat_";
-      err.style.display = "block"; return;
-    }
+  if (!ant.startsWith("sk-ant")) {
+    err.textContent = "Anthropic key should start with sk-ant-...";
+    err.style.display = "block"; return;
   }
 
-  sessionStorage.setItem("ag_key",    ag);
-  sessionStorage.setItem("provider",  provider);
-  if (provider === "anthropic") sessionStorage.setItem("ant_key", ant);
-  else                          sessionStorage.setItem("gh_token", gh);
+  sessionStorage.setItem("ag_key",  ag);
+  sessionStorage.setItem("ant_key", ant);
   if (wx) sessionStorage.setItem("wx_key", wx);
   if (wm) sessionStorage.setItem("wm_id",  wm);
 
   ARCGIS_KEY    = ag;
-  AI_PROVIDER   = provider;
   ANTHROPIC_KEY = ant;
-  GITHUB_TOKEN  = gh;
   WEATHER_KEY   = wx;
   WEBMAP_ID     = wm;
 
@@ -389,26 +322,18 @@ function submitSetup() {
 
 function resetKeys() {
   sessionStorage.clear();
-  ["input-arcgis","input-anthropic","input-github","input-weather","input-webmap"]
+  ["input-arcgis","input-anthropic","input-weather","input-webmap"]
     .forEach(id => document.getElementById(id).value = "");
   document.getElementById("setup-error").style.display = "none";
-  document.getElementById("radio-anthropic").checked = true;
-  switchProvider("anthropic");
   document.getElementById("setup-screen").style.display = "flex";
 }
 
 window.addEventListener("load", () => {
-  const ag       = sessionStorage.getItem("ag_key");
-  const provider = sessionStorage.getItem("provider");
-  const ant      = sessionStorage.getItem("ant_key");
-  const gh       = sessionStorage.getItem("gh_token");
-  const hasAI    = provider === "github" ? !!gh : !!ant;
-
-  if (ag && hasAI) {
+  const ag  = sessionStorage.getItem("ag_key");
+  const ant = sessionStorage.getItem("ant_key");
+  if (ag && ant) {
     ARCGIS_KEY    = ag;
-    AI_PROVIDER   = provider || "anthropic";
-    ANTHROPIC_KEY = ant || "";
-    GITHUB_TOKEN  = gh  || "";
+    ANTHROPIC_KEY = ant;
     WEATHER_KEY   = sessionStorage.getItem("wx_key") || "";
     WEBMAP_ID     = sessionStorage.getItem("wm_id")  || "";
     document.getElementById("setup-screen").style.display = "none";
@@ -419,11 +344,9 @@ window.addEventListener("load", () => {
 // ── Init app ──────────────────────────────────
 function initApp() {
   initMap();
-  console.log("Weather key present:", !!WEATHER_KEY);
   if (WEATHER_KEY) {
     document.getElementById("weather-refresh-btn").style.display = "inline-block";
-    // Small delay to ensure DOM is ready before fetching weather
-    setTimeout(() => fetchWeather("New Delhi"), 1000);
+    fetchWeather("New Delhi");
   }
 }
 
@@ -444,6 +367,7 @@ function initMap() {
     let mapObj;
 
     if (WEBMAP_ID) {
+      // Load web map with user's feature layers
       mapObj = new WebMap({ portalItem: { id: WEBMAP_ID } });
     } else {
       mapObj = new Map({ basemap: "arcgis/navigation" });
@@ -465,19 +389,7 @@ function initMap() {
     view.when(() => {
       console.log("Map ready");
       if (WEBMAP_ID) setupLayerPanel(mapObj);
-    }).catch(e => {
-      console.warn("Esri basemap failed, switching to OSM fallback:", e);
-      // Fallback: swap to OSM so map is always visible
-      require(["esri/Basemap","esri/layers/WebTileLayer"], function(Basemap, WebTileLayer) {
-        mapObj.basemap = new Basemap({
-          baseLayers: [new WebTileLayer({
-            urlTemplate: "https://{subDomain}.tile.openstreetmap.org/{level}/{col}/{row}.png",
-            subDomains: ["a","b","c"],
-            copyright: "© OpenStreetMap contributors"
-          })]
-        });
-      });
-    });
+    }).catch(e => console.error("Map error:", e));
   });
 }
 
@@ -731,58 +643,17 @@ Respond ONLY with valid JSON — no explanation, no markdown fences:
 }
 Use accurate real-world coordinates for Indian locations.`;
 
-  let rawText;
+  const res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-api-key":ANTHROPIC_KEY,
+      "anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system,
+      messages:[{role:"user",content:msg}]})
+  });
 
-  if (AI_PROVIDER === "github") {
-    // ── GitHub Models (OpenAI-compatible endpoint, free with GitHub PAT) ──
-    const res = await fetch("https://models.inference.ai.azure.com/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${GITHUB_TOKEN}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",             // GPT-4o via GitHub Models
-        max_tokens: 1000,
-        messages: [
-          { role: "system", content: system },
-          { role: "user",   content: msg }
-        ]
-      })
-    });
-    if (!res.ok) {
-      const e = await res.json();
-      throw new Error(e.error?.message || `GitHub Models error ${res.status}`);
-    }
-    const data = await res.json();
-    rawText = data.choices[0].message.content;
-
-  } else {
-    // ── Anthropic API (direct, paid) ──
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": ANTHROPIC_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        system,
-        messages: [{ role: "user", content: msg }]
-      })
-    });
-    if (!res.ok) {
-      const e = await res.json();
-      throw new Error(e.error?.message || `API error ${res.status}`);
-    }
-    const data = await res.json();
-    rawText = data.content[0].text;
-  }
-
-  return JSON.parse(rawText.replace(/```json|```/g, "").trim());
+  if(!res.ok){const e=await res.json();throw new Error(e.error?.message||`API error ${res.status}`);}
+  const data=await res.json();
+  return JSON.parse(data.content[0].text.replace(/```json|```/g,"").trim());
 }
 
 function renderResponse(r) {
